@@ -12,9 +12,11 @@ export const initRouter = onRoute => {
 }
 
 export const push = nextUrl => {
-	window.dispatchEvent(new CustomEvent(ROUTE_CHAEGE_EVENT_NAME), {
-		detail: {
-			nextUrl,
-		},
-	})
+	window.dispatchEvent(
+		new CustomEvent(ROUTE_CHAEGE_EVENT_NAME, {
+			detail: {
+				nextUrl,
+			},
+		})
+	)
 }

@@ -1,9 +1,6 @@
-import { push } from "../../Domain/router.js"
-
-export default function DocumentList({ $target, initialState }) {
+export default function DocumentList({ $target, initialState, onAdd, onDelete }) {
 	const $docList = document.createElement("div")
 	$docList.className = "doc-list"
-
 	$target.appendChild($docList)
 
 	this.state = initialState
@@ -13,41 +10,45 @@ export default function DocumentList({ $target, initialState }) {
 		this.render()
 	}
 
-	const renderDocuments = nextDocuments => `
-	<ul>
-	  ${nextDocuments
-			.map(
-				({ id, title, documents }) => `
-			<li data-id="${id}" class="doc-item">
-			  ${title}
-			  <button class="btn-add" type="button">+</button>
-			</li>
-			${documents.length ? renderDocuments(documents) : "No pages inside"}
-		  `
-			)
-			.join("")}
-	</ul>
-  `
-
 	this.render = () => {
-		if (this.state.length > 0) {
-			$docList.innerHTML = renderDocuments(this.state)
-		}
+		const documentList = renderDocuments(this.state, "")
+		const rootButton = "<button class='btn-add document-item'>+ 페이지 추가</button>"
+		$docList.innerHTML = `${documentList}${rootButton}`
 	}
 
-	$docList.addEventListener("click", e => {
-		const $li = e.target
+	const renderDocuments = (list, text) => {
+		text += `
+			<ul>
+				${list
+					.map(
+						({ id, title, documents }) =>
+							`<li data-id="${id}" class="document-item">${title}
+				<button class="btn-add">+</button>
+				<button class="btn-delete">-</button>
+				</li>
 
-		if ($li) {
-			const { className } = $li
-			const { id } = $li.dataset
-			if (className === "doc-item") {
-				push(`/documents/${id}`)
+				${documents.map(document => renderDocuments([document], text)).join("")}
+				`
+					)
+					.join("")}
+			</ul>
+		`
+		return text
+	}
+
+	this.render()
+
+	$docList.addEventListener("click", e => {
+		const { className } = e.target
+		const $li = e.target.closest("li")
+		const id = $li?.dataset.id ?? null
+
+		if (className) {
+			if (className === "btn-delete") {
+				onDelete(id)
 			} else {
-				push(`/documents/new`)
+				onAdd(id, className)
 			}
 		}
 	})
-
-	this.render()
 }

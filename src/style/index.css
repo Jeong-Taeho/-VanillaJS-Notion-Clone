@@ -1,0 +1,21 @@
+body {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.editor-title {
+	width: 600px;
+}
+
+.editor-content {
+	width: 600px;
+	height: 400px;
+	border: 10px solid black;
+}
+
+.side-container {
+	width: 300px;
+	height: 100vh;
+	background-color: aqua;
+	padding-left: 10px;
+}

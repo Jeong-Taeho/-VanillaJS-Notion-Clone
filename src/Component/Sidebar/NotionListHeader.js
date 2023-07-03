@@ -1,6 +1,6 @@
-export default function SidebarHeader({ $target, initialState }) {
+export default function NotionListHeader({ $target, initialState }) {
 	const $header = document.createElement("div")
-	$header.classList.add("sidebar-header")
+	$header.classList.add("notionList-header")
 
 	$target.appendChild($header)
 
