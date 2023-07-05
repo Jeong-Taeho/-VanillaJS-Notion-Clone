@@ -32,7 +32,8 @@ export default function DocumentList({ $target, initialState, onAdd, onDelete })
 				${list
 					.map(
 						({ id, title, documents }) =>
-							`<li data-id="${id}" class="document-item">${title === "" ? `${(title = "제목 없음")}` : `${title}`}
+							`<li data-id="${id}" class="document-item">
+								<span class="list-title">${title === "" ? `${(title = "제목 없음")}` : `${title}`}</span>
 					<div class="buttons">
 						<button class="btn-delete" type="button">
 							<i class="fa-regular fa-trash-can btn-delete"></i>		

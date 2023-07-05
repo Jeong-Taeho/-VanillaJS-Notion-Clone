@@ -25,13 +25,16 @@ i {
 	padding: 0;
 }
 
+input {
+	appearance: none;
+}
+
 /* 사이드 바 부분 스타일 */
 .notion-Listpage {
-	max-width: 300px;
+	max-width: 280px;
 	height: 100%;
 	flex: 4;
 	background-color: #eee;
-	height: 100%;
 }
 
 .notionList-header {
@@ -39,16 +42,21 @@ i {
 }
 
 .document-item {
+	max-width: inherit;
 	display: flex;
+	overflow: hidden;
 }
 
 .buttons {
 	margin-left: auto;
 	font-size: 15px;
+	margin-right: 5px;
 }
 
 .document-list {
-	margin-left: 20px;
+	max-width: inherit;
+	margin-left: 15px;
+	height: 80%;
 }
 
 .document-list ul {
@@ -61,9 +69,22 @@ i {
 	color: #dededd;
 }
 
+.document-list li.document-item {
+	display: block;
+	overflow: hidden;
+	display: flex;
+	white-space: nowrap;
+}
+
+.document-item .list-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .new-rootDocument i {
 	margin-top: 2px;
-	margin-right: 7px;
+	margin-right: 9px;
 	font-size: 15px;
 }
 
@@ -119,4 +140,12 @@ i {
 	margin-left: 20px;
 	padding-left: 1px;
 	cursor: pointer;
+}
+
+.subDocument li {
+	display: block;
+	width: 200px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }

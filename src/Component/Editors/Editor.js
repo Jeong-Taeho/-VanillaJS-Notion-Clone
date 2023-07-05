@@ -26,6 +26,7 @@ export default function Editor({ $target, initialState = { title: "", content: "
 
 	this.render = nextState => {
 		const { title, content } = this.state
+
 		$editor.querySelector("[name=title]").value = title
 		$editor.querySelector("[name=content]").value = content
 
@@ -54,6 +55,15 @@ export default function Editor({ $target, initialState = { title: "", content: "
 	}
 
 	this.render()
+
+	// 마크업 처리 함수
+	// const replaceMarkUp = text => {
+	// 	const h1Regex = /#(.+)/g
+
+	// 	const h1Replaced = text.replace(h1Regex, `<h1>${text}</h1>`)
+
+	// 	return h1Replaced
+	// }
 
 	$editor.addEventListener("keyup", e => {
 		const { target } = e

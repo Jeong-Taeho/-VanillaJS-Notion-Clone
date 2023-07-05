@@ -38,7 +38,6 @@ export default function EditPage({ $target, initialState, update }) {
 
 	const selectedDocument = async () => {
 		const post = await request(`/documents/${this.state.id}`)
-		console.log(post)
 		editor.setState(post)
 	}
 
