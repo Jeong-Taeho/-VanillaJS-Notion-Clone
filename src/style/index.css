@@ -1,21 +1,122 @@
+html,
 body {
+	width: 100%;
+	height: 100%;
 	box-sizing: border-box;
 	margin: 0;
+	padding: 0;
 }
 
-.editor-title {
-	width: 600px;
+#app {
+	display: flex;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	font-family: "Open Sans", sans-serif;
+}
+
+button {
+	cursor: pointer;
+	background-color: none;
+	border: transparent;
+}
+
+i {
+	padding: 0;
+}
+
+/* 사이드 바 부분 스타일 */
+.notion-Listpage {
+	max-width: 300px;
+	height: 100%;
+	flex: 4;
+	background-color: #eee;
+	height: 100%;
+}
+
+.notionList-header {
+	margin-left: 5px;
+}
+
+.document-item {
+	display: flex;
+}
+
+.buttons {
+	margin-left: auto;
+	font-size: 15px;
+}
+
+.document-list {
+	margin-left: 20px;
+}
+
+.document-list ul {
+	padding-left: 12px;
+	list-style: none;
+	line-height: 24px;
+}
+
+.document-list .buttons :hover {
+	color: #dededd;
+}
+
+.new-rootDocument i {
+	margin-top: 2px;
+	margin-right: 7px;
+	font-size: 15px;
+}
+
+/* 에디터 부분 스타일 */
+
+.edit-page {
+	flex: 8;
+}
+
+.editor {
+	text-align: center;
+	margin: 50px 80px;
+	height: 80%;
+}
+
+.editor .editor-title,
+.editor .editor-content {
+	width: 100%;
+	padding: 10px;
+	font-family: inherit;
+	border: none;
+	outline: none;
+	resize: none;
+	overflow: hidden;
+}
+
+.editor .editor-title {
+	font-size: 42px;
+	font-weight: 700;
+}
+
+.editor-title::placeholder {
+	color: #e1e1e2;
 }
 
 .editor-content {
-	width: 600px;
-	height: 400px;
-	border: 10px solid black;
+	margin-top: 15px;
+	font-size: 20px;
+	height: 70%;
 }
 
-.side-container {
-	width: 300px;
-	height: 100vh;
-	background-color: aqua;
-	padding-left: 10px;
+.editor-content::placeholder {
+	color: #e1e1e2;
+}
+
+.subDocument {
+	margin: 50px 0px 0px 30px;
+	position: fixed;
+	bottom: 30px;
+}
+
+.subDocument ul {
+	margin-left: 20px;
+	padding-left: 1px;
+	cursor: pointer;
 }

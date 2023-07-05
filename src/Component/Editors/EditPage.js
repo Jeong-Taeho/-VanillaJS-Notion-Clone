@@ -1,17 +1,23 @@
 import Editor from "./Editor.js"
 import { request } from "../../Domain/api.js"
+import { validateNew, validateString } from "../../utils/validation.js"
 
-export default function EditPage({ $target, selectedId, update }) {
+export default function EditPage({ $target, initialState, update }) {
+	validateNew(new.target)
+
 	const $page = document.createElement("div")
-	$page.className = "edit-container"
+	$page.className = "edit-page"
 
-	this.state = selectedId
+	this.state = initialState
 
 	let timer = null
 
 	const editor = new Editor({
 		$target: $page,
-		initialState: { title: "", content: "" },
+		initialState: {
+			title: "",
+			content: "",
+		},
 		onEditing: post => {
 			if (timer !== null) clearTimeout(timer)
 			timer = setTimeout(() => {
@@ -20,7 +26,6 @@ export default function EditPage({ $target, selectedId, update }) {
 		},
 		onClick: id => {
 			this.state = { id }
-			history.pushState(null, null, `/documents/${id}`)
 			selectedDocument()
 		},
 	})
@@ -32,13 +37,12 @@ export default function EditPage({ $target, selectedId, update }) {
 	}
 
 	const selectedDocument = async () => {
-		//리스트 클릭시 이동
 		const post = await request(`/documents/${this.state.id}`)
-		await editor.setState(post)
+		console.log(post)
+		editor.setState(post)
 	}
 
 	const fetchDocument = async post => {
-		//수정
 		await request(`/documents/${this.state.id}`, {
 			method: "PUT",
 			body: JSON.stringify(post),

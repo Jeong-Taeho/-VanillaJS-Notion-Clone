@@ -8,7 +8,7 @@ export default function NotionListHeader({ $target, initialState }) {
 
 	this.render = () => {
 		$header.innerHTML = `
-            <p>${this.state.workspaceName}</p>
+            <h3>${this.state.workspaceName}</h3>
         `
 	}
 

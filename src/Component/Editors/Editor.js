@@ -1,4 +1,8 @@
+import { validateNew, validateString, vaildateArray } from "../../utils/validation.js"
+
 export default function Editor({ $target, initialState = { title: "", content: "" }, onEditing, onClick }) {
+	validateNew(new.target)
+
 	const $editor = document.createElement("div")
 	$editor.className = "editor"
 
@@ -8,45 +12,37 @@ export default function Editor({ $target, initialState = { title: "", content: "
 	$target.appendChild($subdocumentList)
 
 	this.state = initialState
+	validateString(this.state)
 
-	let isinitialize = false
+	$editor.innerHTML = `
+				<input type="text" name="title" class="editor-title" placeholder="제목 없음">
+				<textarea name="content" class="editor-content" placeholder="내용을 입력하세요">${this.state.content}</textarea>
+    `
 
 	this.setState = nextState => {
 		this.state = nextState
-		$editor.querySelector("[name=title]").value = this.state.title
-		$editor.querySelector("[name=content]").value = this.state.content
 		this.render([nextState])
 	}
 
 	this.render = nextState => {
-		if (!isinitialize) {
-			$editor.innerHTML = `
-				<div>
-    				<input type="text" name="title" class="editor-title" placeholder="입력 부탁" value="${this.state.title}" />
-				</div>
-				<div>
-					<textarea name="content" class="editor-content">${this.state.content}</textarea>
-				</div>
-    		`
-			isinitialize = true
-		}
+		const { title, content } = this.state
+		$editor.querySelector("[name=title]").value = title
+		$editor.querySelector("[name=content]").value = content
 
 		if (nextState) {
 			const documentList = renderDocuments(nextState, "")
-			$subdocumentList.innerHTML = `<div class="subDocument">선택된 Document의 목록들 ${documentList}</div>`
+			$subdocumentList.innerHTML = `<div class="subDocument"><h2>현재 Document 하위 문서들</h2> ${documentList}</div>`
 		}
 	}
 
 	const renderDocuments = (list, text) => {
+		vaildateArray(list)
 		text += `
 			<ul>
 				${list
 					.map(
 						({ id, title, documents }) =>
-							`<li data-id="${id}" class="document-item">${title}
-				<button class='btn-add'>+</button>
-				<button class='btn-delete'>-</button>
-				</li>
+							`<li data-id="${id}" class="document-item">${title === "" ? `${(title = "제목 없음")}` : `${title}`}</li>
 
 				${documents.map(document => renderDocuments([document], text)).join("")}
 				`

@@ -1,15 +1,18 @@
+import { validateNew } from "../../utils/validation.js"
 import { request } from "../../Domain/api.js"
 import NotionListHeader from "./NotionListHeader.js"
 import DocumentList from "./DocumentList.js"
 
 export default function NotionListPage({ $target, editDocument, reset }) {
+	validateNew(new.target)
+
 	const $page = document.createElement("div")
 	$page.className = "notion-Listpage"
 
 	new NotionListHeader({
 		$target: $page,
 		initialState: {
-			workspaceName: "👻 정태호의 노션",
+			workspaceName: "📒 정태호의 노션",
 		},
 	})
 
@@ -17,14 +20,13 @@ export default function NotionListPage({ $target, editDocument, reset }) {
 		$target: $page,
 		initialState: [],
 		onAdd: async (id, className) => {
-			console.log(id, className)
 			if (className.includes("btn-add")) {
 				const post = {
-					title: "new",
+					title: "",
 					parent: id,
 				}
 				const newDocument = await fetchNewDocument(post)
-				editDocument(newDocument.id)
+				await editDocument(newDocument.id)
 			} else {
 				editDocument(id) //list 클릭 시에 수정할 수 있도록
 			}
@@ -40,7 +42,7 @@ export default function NotionListPage({ $target, editDocument, reset }) {
 		},
 	})
 
-	const fetchDocument = async () => {
+	const fetchDocuments = async () => {
 		const posts = await request(`/documents`)
 		documentList.setState(posts)
 	}
@@ -51,11 +53,11 @@ export default function NotionListPage({ $target, editDocument, reset }) {
 			body: JSON.stringify(post),
 		})
 
-		return await newDocument
+		return newDocument
 	}
 
 	this.render = async () => {
-		await fetchDocument()
+		await fetchDocuments()
 		$target.appendChild($page)
 	}
 }
