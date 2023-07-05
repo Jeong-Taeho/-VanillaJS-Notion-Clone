@@ -16,7 +16,9 @@ export default function Editor({ $target, initialState = { title: "", content: "
 
 	$editor.innerHTML = `
 				<input type="text" name="title" class="editor-title" placeholder="제목 없음">
-				<textarea name="content" class="editor-content" placeholder="내용을 입력하세요">${this.state.content}</textarea>
+				<textarea name="content" class="editor-content" placeholder="내용을 입력해 주세요">
+					${this.state.content}
+				</textarea>
     `
 
 	this.setState = nextState => {
